@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<!--    {% for post in posts %}-->
+<!--        <article class="media content-section">-->
+<!--          <div class="media-body">-->
+<!--            <div class="article-metadata">-->
+<!--              <a class="mr-2" href="#">{{ post.author }}</a>-->
+<!--              <small class="text-muted">{{ post.date_posted }}</small>-->
+<!--            </div>-->
+<!--            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>-->
+<!--            <p class="article-content">{{ post.content }}</p>-->
+<!--          </div>-->
+<!--        </article>-->
+<!--    {% endfor %} -->
+<div class="container">
+    <div class="card border-0 shadow my-5">
+        <div class="padding" style="text-align: center; color: whitesmoke;">
+                <div class="card-body p-5">
+                    <div>
+                        <h1 class="font-weight-light">ABC</h1>
+                        <p class="lead" style="color:black">Let's Get Started. What would be your next option?</h3>
+                        <div style="display: inline">
+                        
+                            <button type="button" class="btn btn-outline-success"><a href="{{ url_for('login') }}">Login</a></button>
+                            <button type="button" class="btn btn-outline-success"><a href="{{ url_for('register') }}">Register</a></button>
+                            <button type="button" class="btn btn-outline-success"><a href="{{ url_for('Adminlogin') }}">Login as Admin</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+</div>
+
+
+
+{% endblock content %}

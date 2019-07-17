@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section" style="background-color: transparent;
+    border: transparent;
+    text-align: center;
+    font-size: 20px;
+    color: ghostwhite;
+">
+    <legend class="border-bottom mb-4" style="text-align: centre;">HR control Panel</legend>
+    <div style="text-align: center;">
+        <a href="{{url_for('search')}}" class="btn btn-info" role="button">Search Details</a>
+    </div>
+    <br/>
+    <div style="text-align: center;">
+        <a href="{{url_for('candidatedetails')}}" class="btn btn-info" role="button">Candidate Table</a>
+    </div>
+    <br/>
+    <div style="text-align: center;">
+        <a href="{{url_for('progresstrack')}}" class="btn btn-info" role="button">Round Status Update</a>
+    </div>
+
+</div>
+
+
+{% endblock content %}

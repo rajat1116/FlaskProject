@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Search Here</legend>
+            <div class="form-group">
+                {{ form.selectS.label(class="form-control-label") }}
+                {% if form.selectS.errors %}
+                {{ form.selectS(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.selectS.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.selectS(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.selectJ.label(class="form-control-label") }}
+                {% if form.selectJ.errors %}
+                {{ form.selectJ(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.selectJ.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.selectJ(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.selectN.label(class="form-control-label") }}
+                {% if form.selectN.errors %}
+                {{ form.selectN(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.selectN.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.selectN(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.selectR.label(class="form-control-label") }}
+                {% if form.selectR.errors %}
+                {{ form.selectR(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.selectR.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.selectR(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.selectT.label(class="form-control-label") }}
+                {% if form.selectT.errors %}
+                {{ form.selectT(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.selectT.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.selectT(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+
+    </form>
+</div>
+<div class="media-block">
+    {% if result %}
+    <table class="table table-hover" style="background: white;">
+        <th>Job ID</th>
+        <th>Candidate Name</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>Notice Period</th>
+        <th>Skills</th>
+        <th>Source</th>
+        <th>Download Resume</th>
+        {% for item in result %}
+        <tr>
+            <th style="background-color: #ffffff; color: black;"> {{ item[0] }}</th>
+            <th style="background-color: #ffffff; color: black;"> {{ item[1] }}</th>
+            <th style="background-color: #ffffff; color: black;"> {{ item[2] }}</th>
+            <th style="background-color: #ffffff; color: black;"> {{ item[3] }}</th>
+            <th style="background-color: #ffffff; color: black;"> {{ item[4] }}</th>
+            <th style="background-color: #ffffff; color: black;"> {{ item[5] }}</th>
+            <th style="background-color: #ffffff; color: black;"> {{ item[6] }}</th>
+            <th style="background-color: #ffffff; color: black;"><a href="{{ url_for('download',email = item[1] ) }}">{{
+                item[7] }} </a></th>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+{% endblock content %}
