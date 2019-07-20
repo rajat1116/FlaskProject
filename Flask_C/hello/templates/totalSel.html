@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col align-self-start">
+
+        </div>
+        <div class="col align-self-center">
+            <table>
+                <thead>
+                <tr>
+                    <th>Candidate Email</th>
+                    <th>Job ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in sel %}
+                <tr>
+                    <td>{{ i[0] }}</td>
+                    <td>{{ i[1] }}</td>
+                </tr>
+
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col align-self-end">
+        </div>
+    </div>
+</div>
+{% endblock content %}

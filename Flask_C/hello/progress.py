@@ -15,9 +15,11 @@ cursor = connection.cursor()
 
 select1 = ("SELECT candidatename,candidatename "
            "FROM candidatedel ")
-
 cursor.execute(select1)
 result1 = cursor.fetchall()
+name = [(None, '--Select--')]
+name.extend(result1)
+
 
 result2 = [('Non', '--Select--'),
            ('Round1', 'Round 1'),

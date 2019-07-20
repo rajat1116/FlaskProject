@@ -35,9 +35,9 @@ class CandidateForm(FlaskForm):
     skills = StringField('Skills', validators=[DataRequired()])
     source = StringField('Source', validators=[DataRequired()])
     cv = FileField('Upload Resume', validators=[DataRequired(), FileAllowed(['png', 'jpg', 'pdf', 'docx'])])
-    choices = [('Data Engineer', 'Data Engineer'), ('UI/UX dev', 'UI/UX dev'), ('FullStack', 'FullStack'),
-               ('AndriodDevloper', 'AndriodDevloper'), ('IosDev','IosDev'), ('HR','HR'), ('salesforce', 'salesforce'),
-               ('Anaplan','Anaplan')]
+    choices = [('01', 'Data Engineer'), ('02', 'UI/UX dev'), ('04', 'Full Stack'),
+               ('05', 'AndriodDevloper'), ('06', 'IosDev'), ('07', 'HR'), ('08', 'Salesforce'),
+               ('09', 'Anaplan')]
     jobId = SelectField('Select Job ID', choices=choices)
     submit = SubmitField('Submit')
 
@@ -48,7 +48,7 @@ class SearchForm(FlaskForm):
     selectN = StringField('Notice Period:')
     selectR = SelectField('Select Round:', choices=Lookup(result2))
     selectT = SelectField('Select Status:', choices=Lookup(result3))
-    submit = SubmitField('Select')
+    submit = SubmitField('Search')
 
 
 class ProgessTrack(FlaskForm):
@@ -56,3 +56,12 @@ class ProgessTrack(FlaskForm):
     selectR = SelectField('Select Round:', choices=Lookup(result2))
     selectS = SelectField('Select Status:', choices=Lookup(result3))
     submit = SubmitField('Select')
+
+
+class JobVacancy(FlaskForm):
+    choices = [('01', 'Data Engineer'), ('02', 'UI/UX dev'), ('03', 'Full Stack'),
+               ('04', 'AndriodDevloper'), ('05', 'Ios Dev'), ('06', 'HR'), ('07', 'Salesforce'),
+               ('08', 'Anaplan'), ('09', 'Associates'), ('10', 'Backend')]
+    selectVac = SelectField('Select Vacancy: ', choices=choices)
+    NVacancy = IntegerField('Number Of Vacancy: ')
+    submit = SubmitField('Submit')

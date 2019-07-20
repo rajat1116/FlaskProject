@@ -3,7 +3,7 @@
 <div class="container-section">
     <!-- <input type="search" class="light-table-filter" data-table="order-table" placeholder="Filter" style="margin-left: 400px"> -->
     
-	<table id="myTable" class="table table-fulid">
+	<table id="myTable" class="display" style="text-align: centre">
 		<thead>
 			<th>Job ID</th>
 			<th>Candidate Name</th>
@@ -14,9 +14,10 @@
 			<th>Source</th>
 			<th>Download Resume</th>
 		</thead>
+		<tbody>
 {% for item in data %}
   <tr>
-	  <tbody>
+	  
 		  <td> {{ item[0] }}  </td>
 		  <td> {{ item[1] }}  </td>
 		  <td> {{ item[2] }}  </td>
@@ -24,17 +25,46 @@
 		  <td> {{ item[4] }}  </td>
 		  <td> {{ item[5] }}  </td>
 		  <td> {{ item[6] }}  </td>
-		  <td> <a href="{{ url_for('download',email = item[2] ) }}"  >{{ item[7] }}  </a></th>
-		</tbody>
+		  <!-- <td> <a href="{{ url_for('download',email = item[2] ) }}"  >{{ item[7] }}  </a></td> -->
+		  <td><a href="{{ url_for('download',email = item[2] ) }}" class="btn btn-primary btn-primary">Download</a></td>
+		
   </tr>
 {% endfor %}
-      </table>
+</tbody>
+</table>
 </div>
+
 <script>
-		$(document).ready( function () {
-		$('#myTable').DataTable();
-	} );
-	</script>
+	$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#myTable thead tr').clone(true).appendTo( '#myTable thead' );
+    $('#myTable thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
+    var table = $('#myTable').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
+</script>
+
+<!--<script>-->
+<!--	$(document).ready( function () {-->
+<!--	$('#myTable').DataTable();-->
+<!--} );-->
+<!--</script>-->
+
 <!-- 
 <script>
     (function(document) {

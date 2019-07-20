@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="container-section" style="text-align: centre; margin: 5px;">
+                <table  id="myTable">
+                    <thead>
+                    <th>Job ID</th>
+                    <th>Vacancy</th>
+                    </thead>
+                    <tbody>
+                    {% for i in result%}
+                    <tr>
+                        <td>{{ i[0] }}</td>
+                        <td>{{ i[1] }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <table>
+                <thead>
+                <th>Job ID</th>
+                <th>Name</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>01</td>
+                    <td>Data Engineer</td>
+                </tr>
+                <tr>
+                    <td>02</td>
+                    <td>UI/UX dev</td>
+                </tr>
+                <tr>
+                    <td>03</td>
+                    <td>Full Stack</td>
+                </tr>
+                <tr>
+                    <td>04</td>
+                    <td>Andriod Devloper</td>
+                </tr>
+                <tr>
+                    <td>05</td>
+                    <td>Ios Dev</td>
+                </tr>
+                <tr>
+                    <td>06</td>
+                    <td>HR</td>
+                </tr>
+                <tr>
+                    <td>07</td>
+                    <td>Salesforce</td>
+                </tr>
+                <tr>
+                    <td>08</td>
+                    <td>Anaplan</td>
+                </tr>
+                <tr>
+                    <td>09</td>
+                    <td>Associates</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Backend</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+	$(document).ready( function () {
+	$('#myTable').DataTable();
+} );
+</script>
+{% endblock content %}

@@ -18,7 +18,36 @@
     <div style="text-align: center;">
         <a href="{{url_for('RoundStat')}}" class="btn btn-info" role="button">Display Round Status</a>
     </div> -->
-
+    {% if 'Adminloggedin' in session %}
+        <div class="col-md-4">
+            <div class="content-section">
+                <h3>Admin Menu</h3>
+        
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-light">
+                      <div style="text-align: center;">
+                            <a href="{{url_for('candidateprofile')}}" class="btn btn-info" role="button">New Candidate Details</a>
+                      </div>
+                    </li>
+                    <li class="list-group-item list-group-item-light">
+                        <div style="text-align: center;">
+                            <a href="{{url_for('candidatedetails')}}" class="btn btn-info" role="button">Candidate Table</a>
+                        </div>
+                    </li>
+                    <li class="list-group-item list-group-item-light">
+                        <div style="text-align: center;">
+                            <a href="{{url_for('progresstrack')}}" class="btn btn-info" role="button">Round Status Update</a>
+                        </div>
+                    </li>
+                    <li class="list-group-item list-group-item-light">
+                        <div style="text-align: center;">
+                            <a href="{{url_for('RoundStat')}}" class="btn btn-info" role="button">Display Round Status</a>
+                        </div>
+                    </li>
+                </ul>
+                </p>
+            </div>
+            {% endif %}
 </div>
 
 

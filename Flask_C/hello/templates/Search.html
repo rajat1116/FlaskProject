@@ -79,29 +79,41 @@
 </div>
 <div class="media-block">
     {% if result %}
-    <table class="table table-hover" style="background: white;">
-        <th>Job ID</th>
-        <th>Candidate Name</th>
-        <th>Email</th>
-        <th>Contact</th>
-        <th>Notice Period</th>
-        <th>Skills</th>
-        <th>Source</th>
-        <th>Download Resume</th>
+    <table id="myTable" class="table table-fluid" style="background: white;">
+        <thead>
+            <th>Job ID</th>
+            <th>Candidate Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Notice Period</th>
+            <th>Skills</th>
+            <th>Source</th>
+            <th>Download Resume</th>
+
+        </thead>
+        <tbody>
+
         {% for item in result %}
         <tr>
-            <th style="background-color: #ffffff; color: black;"> {{ item[0] }}</th>
-            <th style="background-color: #ffffff; color: black;"> {{ item[1] }}</th>
-            <th style="background-color: #ffffff; color: black;"> {{ item[2] }}</th>
-            <th style="background-color: #ffffff; color: black;"> {{ item[3] }}</th>
-            <th style="background-color: #ffffff; color: black;"> {{ item[4] }}</th>
-            <th style="background-color: #ffffff; color: black;"> {{ item[5] }}</th>
-            <th style="background-color: #ffffff; color: black;"> {{ item[6] }}</th>
-            <th style="background-color: #ffffff; color: black;"><a href="{{ url_for('download',email = item[1] ) }}">{{
+            <td style="background-color: #ffffff; color: black;"> {{ item[0] }}</td>
+            <td style="background-color: #ffffff; color: black;"> {{ item[1] }}</td>
+            <td style="background-color: #ffffff; color: black;"> {{ item[2] }}</td>
+            <td style="background-color: #ffffff; color: black;"> {{ item[3] }}</td>
+            <td style="background-color: #ffffff; color: black;"> {{ item[4] }}</td>
+            <td style="background-color: #ffffff; color: black;"> {{ item[5] }}</td>
+            <td style="background-color: #ffffff; color: black;"> {{ item[6] }}</td>
+            <td style="background-color: #ffffff; color: black;"><a href="{{ url_for('download',email = item[1] ) }}">{{
                 item[7] }} </a></th>
         </tr>
         {% endfor %}
+    </tbody>
     </table>
     {% endif %}
 </div>
+
+<script>
+        $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+    </script>
 {% endblock content %}
