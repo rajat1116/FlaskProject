@@ -1,19 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container">
-    <p style="font-family: 'Montserrat', sans-serif; font-size: 30px;">Welcome, {{ username[0][0] }} !</p>
-</div>
-
 <div class="container" style="margin: 12px; padding: 4px; ">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <a href="{{ url_for('totalVacancy') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
                style="text-align: centre;">
                 <p>Total Vacancy </p>
                 <p style="font-size: 40px"> {{ fetch3[0][0] }} </p>
             </a>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <a href="{{ url_for('candidatedetails') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
                style="text-align: centre;">
                 <p>Total Applied </p>
@@ -21,11 +17,18 @@
             </a>
 
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <a href="{{ url_for('totalSelected') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
                style="text-align: centre;">
                 <p>Total Selected </p>
                 <p style="font-size: 40px"> {{ fetch5[0][0] }} </p>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{{ url_for('totalJoined') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
+               style="text-align: centre;">
+                <p>Total Joined </p>
+                <p style="font-size: 40px"> {{ fetch6[0][0] }} </p>
             </a>
         </div>
 

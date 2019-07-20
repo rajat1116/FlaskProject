@@ -131,17 +131,17 @@ def Hrmenu():
     fetch4 = con2.fetchall()
     print(fetch4)
 
-    q5 = "SELECT count(joined) FROM roundTable"
+    q5 = "SELECT count(offer) FROM roundTable"
     con2.execute(q5)
     fetch5 = con2.fetchall()
     print(fetch5)
 
-    q6 = "SELECT username FROM details"
+    q6 = "SELECT count(joined) FROM roundTable"
     con2.execute(q6)
     fetch6 = con2.fetchall()
     print(fetch6)
 
-    return render_template('hrmenu.html', mylist=mylist, fetch3=fetch3, fetch4=fetch4, fetch5=fetch5, username=fetch6)
+    return render_template('hrmenu.html', mylist=mylist, fetch3=fetch3, fetch4=fetch4, fetch5=fetch5, fetch6=fetch6)
 
 
 @app.route("/rounds", methods=['GET', 'POST'])
@@ -348,8 +348,22 @@ def totalVacancy():
 @app.route("/totSel", methods=['GET', 'POST'])
 def totalSelected():
     con4 = connection.cursor()
-    q1 = "SELECT n.email, job_id FROM roundTable as n INNER JOIN candidatedel as m ON n.email = m.email WHERE n.joined = 'Selected'"
+    q1 = "SELECT m.job_id, n.email, m.candidatename, m.contact " \
+         "FROM roundTable as n INNER JOIN candidatedel as m " \
+         "ON n.email = m.email WHERE n.offer = 'Selected'"
     con4.execute(q1)
     fetch1 = con4.fetchall()
     print(fetch1)
     return render_template('totalSel.html', sel=fetch1)
+
+
+@app.route("/totJoi", methods=['GET', 'POST'])
+def totalJoined():
+    con5 = connection.cursor()
+    q1 = "SELECT m.job_id, n.email, m.candidatename, m.contact " \
+         "FROM roundTable as n INNER JOIN candidatedel as m " \
+         "ON n.email = m.email WHERE n.joined = 'Selected'"
+    con5.execute(q1)
+    fetch1 = con5.fetchall()
+    print(fetch1)
+    return render_template('totalJoi.html', joi=fetch1)
