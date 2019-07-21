@@ -1,54 +1,170 @@
 {% extends "layout.html" %}
 {% block content %}
+{% if 'Adminloggedin' in session %}
+<div class="container" style="margin: 12px; padding: 4px; ">
+    <div class="row">
+        <div class="col-md-3">
+            <a href="{{ url_for('totalVacancy') }}" class="btn btn-primary btn-lg active" role="button"
+               aria-pressed="true"
+               style="text-align: centre;">
+                <p>Total Vacancy </p>
+                <p style="font-size: 40px"> {{ fetch3[0][0] }} </p>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{{ url_for('candidatedetails') }}" class="btn btn-primary btn-lg active" role="button"
+               aria-pressed="true"
+               style="text-align: centre;">
+                <p>Total Applied </p>
+                <p style="font-size: 40px"> {{ fetch4[0][0] }} </p>
+            </a>
+
+        </div>
+        <div class="col-md-3">
+            <a href="{{ url_for('totalSelected') }}" class="btn btn-primary btn-lg active" role="button"
+               aria-pressed="true"
+               style="text-align: centre;">
+                <p>Total Selected </p>
+                <p style="font-size: 40px"> {{ fetch5[0][0] }} </p>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{{ url_for('totalJoined') }}" class="btn btn-primary btn-lg active" role="button"
+               aria-pressed="true"
+               style="text-align: centre;">
+                <p>Total Joined </p>
+                <p style="font-size: 40px"> {{ fetch6[0][0] }} </p>
+            </a>
+        </div>
+
+    </div>
+</div>
 
 
-    <!-- <legend class="border-bottom mb-4" style="text-align: centre;">Admin Menu</legend>
-    <div style="text-align: center;">
-        <a href="{{url_for('candidateprofile')}}" class="btn btn-info" role="button">New Candidate Details</a>
-    </div>
-    <br/>
-    <div style="text-align: center;">
-        <a href="{{url_for('candidatedetails')}}" class="btn btn-info" role="button">Candidate Table</a>
-    </div>
-    <br/>
-    <div style="text-align: center;">
-        <a href="{{url_for('progresstrack')}}" class="btn btn-info" role="button">Round Status Update</a>
-    </div>
-    <br/>
-    <div style="text-align: center;">
-        <a href="{{url_for('RoundStat')}}" class="btn btn-info" role="button">Display Round Status</a>
-    </div> -->
-    {% if 'Adminloggedin' in session %}
-        <div class="col-md-4">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            {% if 'Adminloggedin' in session %}
             <div class="content-section">
-                <h3>Admin Menu</h3>
-        
+                <h3>Menu</h3>
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-light">
-                      <div style="text-align: center;">
-                            <a href="{{url_for('candidateprofile')}}" class="btn btn-info" role="button">New Candidate Details</a>
-                      </div>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
                         <div style="text-align: center;">
-                            <a href="{{url_for('candidatedetails')}}" class="btn btn-info" role="button">Candidate Table</a>
+                            <a href="{{url_for('candidatedetails')}}" class="btn btn-info" role="button">Candidate
+                                Table</a>
                         </div>
                     </li>
                     <li class="list-group-item list-group-item-light">
                         <div style="text-align: center;">
-                            <a href="{{url_for('progresstrack')}}" class="btn btn-info" role="button">Round Status Update</a>
+                            <a href="{{url_for('RoundStat')}}" class="btn btn-info" role="button">Display Round
+                                Status</a>
                         </div>
                     </li>
                     <li class="list-group-item list-group-item-light">
                         <div style="text-align: center;">
-                            <a href="{{url_for('RoundStat')}}" class="btn btn-info" role="button">Display Round Status</a>
+                            <a href="{{url_for('candidateprofile')}}" class="btn btn-info" role="button">Add a New
+                                Cnadidate</a>
+                        </div>
+                    </li>
+                    <li class="list-group-item list-group-item-light">
+                        <div style="text-align: center;">
+                            <a href="{{url_for('jobVacant')}}" class="btn btn-info" role="button">Add a vacant job</a>
                         </div>
                     </li>
                 </ul>
                 </p>
             </div>
             {% endif %}
+        </div>
+        <div class="col-lg-4">
+            <div id="Job" style="width: 800px; height: 500px;">
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <h3>Round Selected</h3>
+            <table id="myexample">
+                {% for j in fetch7 %}
+                <tr>
+                    <th>Round 1</th>
+                    <td>{{ j[0] }}</td>
+                </tr>
+                <tr>
+                    <th>Round 2</th>
+                    <td>{{ j[1] }}</td>
+                </tr>
+                <tr>
+                    <th>Round 3</th>
+                    <td>{{ j[2] }}</td>
+                </tr>
+                <tr>
+                    <th>Round 4</th>
+                    <td>{{ j[3] }}</td>
+                </tr>
+                <tr>
+                    <th>HR</th>
+                    <td>{{ j[4] }}</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 </div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawJob);
+
+      function drawJob() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string','job');
+        data.addColumn('number','Number of Vacancy');
+        data.addColumn('number','Applied');
+        data.addRows({{mylist|safe}});
+        var options = {
+            Width: 600,
+            height: 400,
+            title: 'Job Vacancy & Applied',
+
+            chart: {
+                subtitle: 'Vacancy & Applied',
+                pieStartAngle: 100,
+          }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('Job'));
+        chart.draw(data, options);
+      }
 
 
+</script>
+<script>
+    $(document).ready(function(){
+    $('#myexample').DataTable(
+        {
+            "searching": false,
+            paging: false
+    });
+
+   $(".tr-show").click(function(){
+        // $("#myexample > tbody").append('<tr><td scope="col" colspan="13" rowspan="1">Rozwinięcie / dodanie dodatkowej treśći</td></tr>');
+
+        $("#updated_contacts").append($(".addElement span").clone());
+
+
+    });
+
+});
+</script>
+{% else %}
+<a href="{{ url_for('home') }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">You aren't
+    Logged in. Go to home</a>
+
+{% endif %}
 {% endblock content %}

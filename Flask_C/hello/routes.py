@@ -98,11 +98,6 @@ def login():
 
 @app.route("/adminmenu", methods=['GET', 'POST'])
 def adminMenu():
-    return render_template('AdminMenu.html')
-
-
-@app.route("/hrmenu", methods=['GET', 'POST'])
-def Hrmenu():
     con2 = connection.cursor()
     mylist = []
     q1 = "SELECT m.job_vacant, m.no_of_vacant, count(n.job_id) FROM jobVacant as m INNER JOIN candidatedel as n ON m.job_vacant = n.job_id GROUP BY n.job_id, m.no_of_vacant, m.job_vacant"
@@ -113,13 +108,15 @@ def Hrmenu():
         mylist.append([ele[0], ele[1], ele[2]])
     print(mylist)
 
-    # mylist2=[]
-    # q2 = "SELECT round1, round2, round3, round4, hr, offer, joined from roundTable"
-    # con2.execute(q2)
-    # fetch2 = con2.fetchall()
-    # print(fetch2)
-    # for ele in fetch2:
-    #     mylist2.append()
+    q2 = "SELECT count(round1), count(round2), count(round3), count(round4), count(hr), count(offer), count(joined) " \
+         "FROM roundTable " \
+         "WHERE round1='Selected' or round2='Selected' or round3='Selected' or " \
+         "round4='Selected' or hr='Selected' or joined='Selected'"
+    con2.execute(q2)
+    rounds = con2.fetchall()
+    row = []
+    for i in rounds:
+        row.append(list(i))
 
     q3 = "SELECT sum(no_of_vacant) FROM jobVacant"
     con2.execute(q3)
@@ -141,7 +138,66 @@ def Hrmenu():
     fetch6 = con2.fetchall()
     print(fetch6)
 
-    return render_template('hrmenu.html', mylist=mylist, fetch3=fetch3, fetch4=fetch4, fetch5=fetch5, fetch6=fetch6)
+    q7 = "SELECT count(round1), count(round2), count(round3), count(round4), count(hr) from roundTable " \
+         "WHERE round1= 'Selected' or round2= 'Selected' or round3= 'Selected' or round4= 'Selected' or hr = 'Selected' "
+    con2.execute(q7)
+    fetch7 = con2.fetchall()
+    print(fetch7)
+    return render_template('AdminMenu.html', mylist=mylist, fetch3=fetch3, fetch4=fetch4, fetch5=fetch5, fetch6=fetch6,
+                           fetch7=fetch7, round=row)
+
+
+@app.route("/hrmenu", methods=['GET', 'POST'])
+def Hrmenu():
+    con2 = connection.cursor()
+    mylist = []
+    q1 = "SELECT m.job_vacant, m.no_of_vacant, count(n.job_id) FROM jobVacant as m INNER JOIN candidatedel as n ON m.job_vacant = n.job_id GROUP BY n.job_id, m.no_of_vacant, m.job_vacant"
+    con2.execute(q1)
+    fetch1 = con2.fetchall()
+    print(fetch1)
+    for ele in fetch1:
+        mylist.append([ele[0], ele[1], ele[2]])
+    print(mylist)
+
+    q2 = "SELECT count(round1), count(round2), count(round3), count(round4), count(hr), count(offer), count(joined) " \
+         "FROM roundTable " \
+         "WHERE round1='Selected' or round2='Selected' or round3='Selected' or " \
+         "round4='Selected' or hr='Selected' or joined='Selected'"
+    con2.execute(q2)
+    rounds = con2.fetchall()
+    row = []
+    for i in rounds:
+        row.append(list(i))
+
+    q3 = "SELECT sum(no_of_vacant) FROM jobVacant"
+    con2.execute(q3)
+    fetch3 = con2.fetchall()
+    print(fetch3)
+
+    q4 = "select count(candidatename) from candidatedel"
+    con2.execute(q4)
+    fetch4 = con2.fetchall()
+    print(fetch4)
+
+    q5 = "SELECT count(offer) FROM roundTable"
+    con2.execute(q5)
+    fetch5 = con2.fetchall()
+    print(fetch5)
+
+    q6 = "SELECT count(joined) FROM roundTable"
+    con2.execute(q6)
+    fetch6 = con2.fetchall()
+    print(fetch6)
+
+    q7 = "SELECT count(round1), count(round2), count(round3), count(round4), count(hr) from roundTable " \
+         "WHERE round1= 'Selected' or round2= 'Selected' or round3= 'Selected' or round4= 'Selected' or hr = 'Selected' " \
+
+    con2.execute(q7)
+    fetch7 = con2.fetchall()
+    print(fetch7)
+
+    return render_template('hrmenu.html', mylist=mylist, fetch3=fetch3, fetch4=fetch4, fetch5=fetch5, fetch6=fetch6,
+                           fetch7=fetch7, round=row)
 
 
 @app.route("/rounds", methods=['GET', 'POST'])
@@ -306,8 +362,10 @@ def jobVacant():
         selectid = ("SELECT job_vacant "
                     "FROM jobVacant")
         con1.execute(selectid)
-        result = con1.fetchone()
+        result = con1.fetchall()
         print(result)
+        out = [item for t in result for item in t]
+        print(out)
         print([selno, selvac])
         if result is None:
             q2 = ("insert into jobVacant "
@@ -316,10 +374,10 @@ def jobVacant():
             con1.commit()
             flash('inserted successfully', 'success')
         else:
-            if selvac in result:
-                upId = ("""UPDATE jobVacant
-                SET no_of_vacant = {}
-                WHERE job_vacant = '{}'""".format(selno, selvac))
+            if selvac in out:
+                upId = ("""UPDATE jobVacant 
+                                SET no_of_vacant = {}
+                                WHERE job_vacant = '{}'""".format(selno, selvac))
                 con1.execute(upId)
                 con1.commit()
                 flash('Updated successfully', 'success')
